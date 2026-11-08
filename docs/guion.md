@@ -1,7 +1,7 @@
 # Integrante 3 — Estructura de datos y Ledger
 
 > Guía de estudio + guion + storyboard de animaciones (Manim).
-> Estado: **borrador para aprobación** · Exposición: desde el 9-nov-2026 · Duración objetivo: 6–7 min.
+> Estado: **aprobado · clips generados** · Exposición: desde el 9-nov-2026 · Duración objetivo: 6–7 min.
 
 ---
 
@@ -135,7 +135,7 @@ Leyenda: 🎬 = lo que muestra el clip · 🗣️ = lo que dices (guía, no para
 - 🗣️ "En Bitcoin llegan miles de transacciones por minuto. Ponerse de acuerdo una por una entre nodos de todo el planeta sería imposible. La solución: agruparlas en lotes. Cada lote es un **bloque**, y la red acuerda bloque por bloque, más o menos cada 10 minutos."
 
 **C2 · Cuaderno, página, línea** (~12 s)
-- 🎬 Tres columnas que se animan: 📒 Ledger = cuaderno, 📄 Bloque = página, ✏️ Transacción = línea. Luego las páginas se alinean en una cadena de cubos con el estilo de la intro.
+- 🎬 Tres columnas que se animan: 📒 Ledger = cuaderno, 📄 Bloque = página, ✏️ Transacción = línea. Luego aparece **la misma cadena en zigzag de la diapositiva "Blockchain" de la intro** (5 cubos de alambre, línea punteada que entra desde la izquierda, "Hash Previo" bajo cada cubo y la frase "Cada bloque referencia criptográficamente al anterior."), ahora con hashes reales.
 - 🗣️ "Si el ledger es el cuaderno, el bloque es una página y la transacción una línea. El ledger es toda la historia; el bloque es la unidad en que se agrega y se sella. Y cada página apunta a la anterior, la cadena que vieron en la intro. Ahora abramos una página."
 
 ### D. Estructura del bloque (≈1:00)
@@ -207,3 +207,11 @@ CVE-2012-2459 y separación de dominio (§1.6). Sin animación, solo texto.
 - Brownworth, A. — *Blockchain 101: A Visual Demo*. https://anders.com/blockchain
 - Bitcoin Optech — *Merkle tree vulnerabilities* (CVE-2012-2459). https://bitcoinops.org/en/topics/merkle-tree-vulnerabilities/
 - RFC 6962 — Certificate Transparency (separación de dominio en árboles de Merkle).
+
+## 6. Cómo montar los clips en Canva
+
+1. Genera los clips con `make clips`. Salen en `renders/`: `01_A1_cuaderno.mp4` … `12_E3_prueba_inclusion.mp4`, cada uno con su `.png` (último fotograma).
+2. En Canva crea **una diapositiva por clip**, en el mismo orden. Sube el MP4 y estíralo a pantalla completa (1920×1080, mismo fondo `#1E2124`).
+3. En cada video: **Reproducción automática** activada, **sin bucle** y **sin transición** entre diapositivas. Así cada clip arranca donde terminó el anterior.
+4. Respaldo: si en la sala falla el video, reemplázalo por el `.png` del mismo número, que muestra el estado final.
+5. Ensayo: avanza solo cuando terminaste la frase del 🗣️ correspondiente. El clip queda quieto al final, así que no hay apuro.
