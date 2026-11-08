@@ -86,14 +86,15 @@ def title_bar(title: str, subtitle: str) -> VGroup:
     return group.to_edge(UP, buff=0.35)
 
 
-def person(name: str, scale: float = 1.0) -> VGroup:
+def person(name: str, scale: float = 1.0, *, color: ParsableManimColor | None = None) -> VGroup:
     """Silueta lineal como los íconos del Canva."""
-    head = Circle(radius=0.28, color=theme.TEXT, stroke_width=4)
-    body = Arc(radius=0.48, start_angle=0, angle=3.14159, color=theme.TEXT, stroke_width=4)
+    c = color or theme.TEXT
+    head = Circle(radius=0.28, color=c, stroke_width=4)
+    body = Arc(radius=0.48, start_angle=0, angle=3.14159, color=c, stroke_width=4)
     body.next_to(head, DOWN, buff=0.08)
-    base = Line(body.get_start(), body.get_end(), color=theme.TEXT, stroke_width=4)
+    base = Line(body.get_start(), body.get_end(), color=c, stroke_width=4)
     figure = VGroup(head, body, base)
-    name_label = label(name, 0.4, bold=True).next_to(figure, DOWN, buff=0.12)
+    name_label = label(name, 0.4, color=c, bold=True).next_to(figure, DOWN, buff=0.12)
     return VGroup(figure, name_label).scale(scale)
 
 
