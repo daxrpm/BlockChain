@@ -9,7 +9,7 @@ SCENE ?= s00_smoke:Smoke
 SCENE_FILE = $(SCENES_DIR)/$(word 1,$(subst :, ,$(SCENE))).py
 SCENE_CLASS = $(word 2,$(subst :, ,$(SCENE)))
 
-.PHONY: help dev lint format typecheck test check preview render clips clips-preview intro intro-preview intro-guion clean
+.PHONY: help dev lint format typecheck test check preview render guion clips clips-preview intro intro-preview intro-guion clean
 
 help: ## Lista los comandos disponibles
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-10s %s\n", $$1, $$2}'
@@ -43,12 +43,17 @@ render: ## Render final 1080p30 + PNG del último fotograma a renders/
 	find media/videos -path '*1080p30*' -name '$(SCENE_CLASS).mp4' -exec cp {} $(RENDERS_DIR)/ \;
 	find media/images -name '$(SCENE_CLASS)*.png' -exec cp {} $(RENDERS_DIR)/$(SCENE_CLASS).png \;
 
+guion: ## Regenera docs/guion_integrante3.md desde el guion en código
+	uv run python -m ledger_viz.part3_script > docs/guion_integrante3.md
+
 clips-preview: ## Render rápido 480p de todos los clips de la parte 3 (para revisar)
 	uv run manim render -ql --save_sections src/ledger_viz/scenes/part3.py Part3
 
-clips: ## Clips finales 1080p30 (uno por diapositiva) + PNG de respaldo en renders/
+clips: guion ## Clips finales 1080p30 (uno por beat) + PNG de respaldo en renders/
+	find $(RENDERS_DIR) -maxdepth 1 -type f \( -name '*.mp4' -o -name '*.png' \) -delete
 	uv run manim render -qh --fps 30 --save_sections src/ledger_viz/scenes/part3.py Part3
 	uv run python -m ledger_viz.export media/videos/part3/1080p30/sections/Part3.json $(RENDERS_DIR)
+	cp media/videos/part3/1080p30/Part3.mp4 $(RENDERS_DIR)/00_video_completo.mp4
 
 intro-guion: ## Regenera docs/guion_integrante1.md desde el guion en código
 	uv run python -m ledger_viz.intro_script > docs/guion_integrante1.md

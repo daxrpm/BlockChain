@@ -1,7 +1,7 @@
 # Integrante 3 — Estructura de datos y Ledger
 
 > Guía de estudio + guion + storyboard de animaciones (Manim).
-> Estado: **aprobado · clips generados** · Exposición: desde el 9-nov-2026 · Duración objetivo: 6–7 min.
+> Estado: **teoría vigente · guion reemplazado por [guion_integrante3.md](guion_integrante3.md)** · Exposición: desde el 9-nov-2026 · Duración objetivo: 6–7 min.
 
 ---
 
@@ -99,6 +99,8 @@ Fuente: *Mastering Bitcoin*, cap. "The Blockchain".
 ---
 
 ## 2. Guion + storyboard (clip por clip)
+
+> ⚠️ **Obsoleto.** El guion vigente (7 min, 28 beats, blockchain en general) es [guion_integrante3.md](guion_integrante3.md). Esta sección queda como referencia de la versión anterior.
 
 **Técnica para que todo vaya sincronizado:** cada clip es **un beat** de lo que dices. En Canva, cada clip va en **su propia diapositiva**, con *autoplay* y sin transición. El **último fotograma de un clip es idéntico al primero del siguiente**, así al avanzar parece una sola animación continua que tú controlas con el clicker. Cada clip termina en una pose quieta (*hold*), así que si hablas más, la imagen espera.
 
