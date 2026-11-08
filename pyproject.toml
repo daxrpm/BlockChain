@@ -1,0 +1,60 @@
+[project]
+name = "ledger-viz"
+version = "0.1.0"
+description = "Animaciones Manim para la exposición de Blockchain: estructura de datos y ledger"
+readme = "README.md"
+authors = [
+    { name = "Dax", email = "daxnavarrete@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "manim>=0.21",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.23,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+lint = [
+    "ruff>=0.17.4",
+    "ty>=0.0.99",
+]
+test = [
+    "hypothesis>=6.170.15",
+    "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
+]
+
+[tool.uv]
+default-groups = ["lint", "test"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D",       # docstrings opcionales: proyecto de presentación, no librería pública
+    "COM812",  # conflicto con el formateador
+    "CPY001",  # sin aviso de copyright: proyecto académico
+    "RUF001",  # flechas/acentos en strings son intencionales (texto en español)
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR2004", "PLC0415"]
+"src/ledger_viz/scenes/**" = ["PLR2004"]  # coordenadas de layout
+
+[tool.pytest.ini_options]
+addopts = ["--cov=ledger_viz.domain", "--cov-report=term-missing", "--cov-fail-under=90"]
+testpaths = ["tests"]
+
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.ty.terminal]
+error-on-warning = true

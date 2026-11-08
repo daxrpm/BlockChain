@@ -1,0 +1,17 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Manim (artefactos regenerables)
+media/
+# Entregables finales sí se versionan en renders/ (pequeños, revisables)
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
