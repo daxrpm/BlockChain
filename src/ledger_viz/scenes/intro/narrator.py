@@ -1,35 +1,12 @@
 """Sincroniza la animación con el guion: cada beat dura al menos su tiempo de lectura."""
 
-from collections.abc import Generator
-from contextlib import contextmanager
+from manim import DOWN, RoundedRectangle, VGroup, VMobject
 
-from manim import DOWN, RoundedRectangle, Scene, VGroup, VMobject
-
-from ledger_viz.intro_script import Section, section
+from ledger_viz.scenes.narrator import Narrator
 from ledger_viz.viz import theme
 from ledger_viz.viz.components import label
 
-
-class Narrator:
-    def __init__(self, scene: Scene) -> None:
-        self.scene = scene
-        self._section: Section | None = None
-
-    def start(self, section_id: str) -> None:
-        self._section = section(section_id)
-        self.scene.next_section(self._section.id)
-
-    @contextmanager
-    def beat(self, beat_id: str) -> Generator[None]:
-        if self._section is None:
-            msg = "Llama a start() antes de narrar un beat"
-            raise RuntimeError(msg)
-        target = self._section.beat(beat_id).seconds
-        start = self.scene.time
-        yield
-        remaining = target - (self.scene.time - start)
-        if remaining > 0:
-            self.scene.wait(remaining)
+__all__ = ["Narrator", "yellow_card"]
 
 
 def yellow_card(

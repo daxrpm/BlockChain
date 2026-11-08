@@ -6,37 +6,11 @@ Cada `Beat` es un fragmento de narración. La escena dura al menos lo que tarda 
 Uso: uv run python -m ledger_viz.intro_script > docs/guion_integrante1.md
 """
 
-from dataclasses import dataclass
 from typing import Final
 
-WORDS_PER_SECOND: Final = 2.4  # ritmo pausado de exposición (~144 palabras/min, ~7 min total)
-MIN_SECONDS: Final = 2.5
+from ledger_viz.script import MIN_SECONDS, WORDS_PER_SECOND, Beat, Section, find_section
 
-
-@dataclass(frozen=True, slots=True)
-class Beat:
-    id: str
-    text: str
-    changed: bool = False  # True si difiere del guion original (para revisarlo)
-
-    @property
-    def seconds(self) -> float:
-        return max(MIN_SECONDS, len(self.text.split()) / WORDS_PER_SECOND)
-
-
-@dataclass(frozen=True, slots=True)
-class Section:
-    id: str
-    slide: str
-    beats: tuple[Beat, ...]
-
-    def beat(self, beat_id: str) -> Beat:
-        for b in self.beats:
-            if b.id == beat_id:
-                return b
-        msg = f"No existe el beat {beat_id!r} en la sección {self.id}"
-        raise KeyError(msg)
-
+__all__ = ["MIN_SECONDS", "SECTIONS", "WORDS_PER_SECOND", "Beat", "Section", "section"]
 
 SECTIONS: Final = (
     Section(
@@ -305,11 +279,7 @@ SECTIONS: Final = (
 
 
 def section(section_id: str) -> Section:
-    for s in SECTIONS:
-        if s.id == section_id:
-            return s
-    msg = f"No existe la sección {section_id!r}"
-    raise KeyError(msg)
+    return find_section(SECTIONS, section_id)
 
 
 def render_markdown() -> str:

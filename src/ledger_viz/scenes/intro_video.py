@@ -6,10 +6,11 @@ da además un clip por diapositiva.
 
 from manim import Scene
 
-from ledger_viz.scenes.intro.narrator import Narrator
+from ledger_viz.intro_script import SECTIONS
 from ledger_viz.scenes.intro.part_a import IntroPartA
 from ledger_viz.scenes.intro.part_b import IntroPartB
 from ledger_viz.scenes.intro.part_c import IntroPartC
+from ledger_viz.scenes.narrator import Narrator
 from ledger_viz.scenes.sections.common import Stage
 from ledger_viz.viz.components import title_bar
 
@@ -19,7 +20,7 @@ class IntroVideo(Scene):
         stage = Stage(
             self, title_bar("El problema de confianza", "¿Por qué necesitamos Blockchain?")
         )
-        narrator = Narrator(self)
+        narrator = Narrator(self, SECTIONS)
         IntroPartA(stage, narrator).run()
         IntroPartB(stage, narrator).run()
         IntroPartC(stage, narrator).run()
