@@ -58,3 +58,6 @@ python-version = "3.13"
 
 [tool.ty.terminal]
 error-on-warning = true
+
+[tool.ruff.lint.pylint]
+max-args = 7  # constructores visuales de manim reciben varios parámetros de estilo
