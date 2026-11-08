@@ -9,7 +9,7 @@ SCENE ?= s00_smoke:Smoke
 SCENE_FILE = $(SCENES_DIR)/$(word 1,$(subst :, ,$(SCENE))).py
 SCENE_CLASS = $(word 2,$(subst :, ,$(SCENE)))
 
-.PHONY: help dev lint format typecheck test check preview render clips clips-preview clean
+.PHONY: help dev lint format typecheck test check preview render clips clips-preview intro intro-preview intro-guion clean
 
 help: ## Lista los comandos disponibles
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-10s %s\n", $$1, $$2}'
@@ -49,6 +49,17 @@ clips-preview: ## Render rápido 480p de todos los clips de la parte 3 (para rev
 clips: ## Clips finales 1080p30 (uno por diapositiva) + PNG de respaldo en renders/
 	uv run manim render -qh --fps 30 --save_sections src/ledger_viz/scenes/part3.py Part3
 	uv run python -m ledger_viz.export media/videos/part3/1080p30/sections/Part3.json $(RENDERS_DIR)
+
+intro-guion: ## Regenera docs/guion_integrante1.md desde el guion en código
+	uv run python -m ledger_viz.intro_script > docs/guion_integrante1.md
+
+intro-preview: ## Render rápido 480p del video de Integrante 1
+	uv run manim render -ql --save_sections src/ledger_viz/scenes/intro_video.py IntroVideo
+
+intro: intro-guion ## Video completo 1080p30 de Integrante 1 + un clip por diapositiva en renders/intro/
+	uv run manim render -qh --fps 30 --save_sections src/ledger_viz/scenes/intro_video.py IntroVideo
+	uv run python -m ledger_viz.export media/videos/intro_video/1080p30/sections/IntroVideo.json $(RENDERS_DIR)/intro
+	cp media/videos/intro_video/1080p30/IntroVideo.mp4 $(RENDERS_DIR)/intro/00_video_completo.mp4
 
 clean: ## Borra artefactos regenerables (media/ y cachés)
 	rm -rf media .pytest_cache .ruff_cache .coverage
