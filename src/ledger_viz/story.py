@@ -37,7 +37,7 @@ TIMESTAMP: Final = 1_794_211_200  # 2026-11-09 08:00 UTC, día de la exposición
 
 CHAIN: Final[list[Block]] = build_chain(
     [
-        (Transaction("Satoshi", "Alice", 10),),
+        (Transaction("Red", "Alice", 10),),  # emisión inicial del génesis
         BLOCK_TXS,
         (Transaction("Eve", "Bob", 1), Transaction("Bob", "Dave", 1)),
         (Transaction("Dave", "Alice", 1),),
